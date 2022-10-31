@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react"
+import { Box, Button, Flex, IconButton, Image, Text } from "@chakra-ui/react"
 import Link from "~/components/InternalLink"
 import NavbarButton from "~/components/NavbarButton"
 import NavbarDropdown from "~/components/NavbarDropdown"
@@ -9,6 +9,7 @@ import { useEffect, useState, type RefObject } from "react"
 import { navigate } from "gatsby"
 
 import penguin from "~/images/penguin.svg"
+import { HamburgerIcon } from "@chakra-ui/icons"
 
 const Navbar = ({
   intersectionElement,
@@ -42,6 +43,8 @@ const Navbar = ({
 
   const { keycloak } = useKeycloak()
 
+  const [isMobileMenuExpanded, setIsMobileMenuExpanded] = useState(false)
+
   return (
     <Box
       bgColor={scrolling ? "whiteAlpha.800" : "transparent"}
@@ -65,6 +68,7 @@ const Navbar = ({
         fontWeight="light"
         alignItems="center"
         justifyContent="space-between"
+        flexWrap={{ base: "wrap", lg: "initial" }}
       >
         <Link
           to="/"
@@ -80,11 +84,22 @@ const Navbar = ({
             Open Computing Facility
           </Text>
         </Link>
+        <IconButton
+          aria-label="Toggle menu"
+          display={{ base: "lg", lg: "none" }}
+          onClick={() => {
+            setIsMobileMenuExpanded(!isMobileMenuExpanded)
+          }}
+          icon={<HamburgerIcon />}
+        />
         <Flex
-          h="100%"
+          h={{ base: "initial", lg: "100%" }}
+          w={{ base: "100%", lg: "initial" }}
           alignItems="center"
           gap={2}
-          display={{ base: "none", lg: "flex" }}
+          display={{ base: isMobileMenuExpanded ? "flex" : "none", lg: "flex" }}
+          flexDirection={{ base: "column", lg: "row" }}
+          bgColor={{ base: "white", lg: "initial" }}
         >
           <NavbarButton>Staff Hours</NavbarButton>
           <NavbarButton href="/docs">Documentation</NavbarButton>
