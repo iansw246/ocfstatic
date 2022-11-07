@@ -1,4 +1,4 @@
-import { Box, Button, Flex, IconButton, Image, Text } from "@chakra-ui/react"
+import { Box, Flex, IconButton, Image, Text } from "@chakra-ui/react"
 import Link from "~/components/InternalLink"
 import NavbarButton from "~/components/NavbarButton"
 import NavbarDropdown from "~/components/NavbarDropdown"
@@ -56,7 +56,7 @@ const Navbar = ({
     >
       <Flex
         w="100%"
-        px="2rem"
+        px={{ base: "1rem", lg: "2rem" }}
         mx="auto"
         maxW="7xl"
         h="100%"
@@ -67,36 +67,40 @@ const Navbar = ({
         justifyContent="space-between"
         flexWrap={{ base: "wrap", lg: "initial" }}
       >
-        <Link
-          to="/"
-          h="100%"
-          textDecoration="none"
-          _hover={{ textDecoration: "none" }}
-          display="flex"
-          gap={4}
-          alignItems="center"
-        >
-          <Image src={penguin} h="125%" alt="OCF Logo" />
-          <Text fontSize="xl" fontWeight="semibold" textDecoration="none">
-            Open Computing Facility
-          </Text>
-        </Link>
-        <IconButton
-          aria-label="Toggle menu"
-          display={{ base: "lg", lg: "none" }}
-          onClick={() => {
-            setIsMobileMenuExpanded(!isMobileMenuExpanded)
-          }}
-          icon={<HamburgerIcon />}
-        />
+        <Flex h="100%" flexWrap="nowrap">
+          <Link
+            to="/"
+            h="100%"
+            textDecoration="none"
+            _hover={{ textDecoration: "none" }}
+            display="flex"
+            gap={4}
+            alignItems="center"
+          >
+            <Image src={penguin} h="125%" alt="OCF Logo" />
+            <Text fontSize="xl" fontWeight="semibold" textDecoration="none">
+              Open Computing Facility
+            </Text>
+          </Link>
+          <IconButton
+            aria-label="Toggle menu"
+            display={{ base: "lg", lg: "none" }}
+            onClick={() => {
+              setIsMobileMenuExpanded(!isMobileMenuExpanded)
+            }}
+            icon={<HamburgerIcon />}
+          />
+        </Flex>
         <Flex
           h={{ base: "initial", lg: "100%" }}
           w={{ base: "100%", lg: "initial" }}
-          alignItems="center"
+          alignItems={{ base: "stretch", lg: "center" }}
           gap={2}
           display={{ base: isMobileMenuExpanded ? "flex" : "none", lg: "flex" }}
+          opacity={isMobileMenuExpanded ? "100%" : "0%"}
           flexDirection={{ base: "column", lg: "row" }}
           bgColor={{ base: "white", lg: "initial" }}
+          transition="opacity 0.5s ease"
         >
           <NavbarButton>Staff Hours</NavbarButton>
           <NavbarButton href="https://new.ocf.berkeley.edu/docs">
